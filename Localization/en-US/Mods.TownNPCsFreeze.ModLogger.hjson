@@ -1,0 +1,7 @@
+Frozen: "{0} ({1}) frozen"
+Thawed: "{0} ({1}) thawed"
+ExcludedAdded: "{0} ({1}) excluded from freeze"
+ExcludedRemoved: "{0} ({1}) no longer excluded from freeze"
+TeleportedHome: "{0} ({1}) teleported home"
+SyncHome: Sync home for {0} ({1}): ({2},{3}). Homeless={4}
+RestoreAll: "{0} NPCs thawed"
