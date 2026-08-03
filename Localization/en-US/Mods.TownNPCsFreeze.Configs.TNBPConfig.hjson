@@ -1,0 +1,80 @@
+DisplayName: Town NPCs Configuration
+
+Headers: {
+	GhostMode: Freeze
+	Invincible: Invincibility
+	Exclusions: Exclusions
+	Compatibility: Mod Compatibility
+	Intervals: Update Intervals
+	Debug: Debug
+}
+
+DistantGhost: {
+	Label: "[i:3625] Distance Freeze"
+	Tooltip: Town NPCs are frozen based on distance.
+}
+
+LoadDistanceX: {
+	Label: "[i:486] Freeze Distance (Horizontal)"
+	Tooltip: Distance in tiles (horizontal) at which town NPCs freeze and unfreeze.
+}
+
+LoadDistanceY: {
+	Label: "[i:486] Freeze Distance (Vertical)"
+	Tooltip: Distance in tiles (vertical) at which town NPCs freeze and unfreeze.
+}
+
+BossGhost: {
+	Label: "[i:43] Freeze During Boss Fight"
+	Tooltip: All town NPCs will be frozen during boss fights.
+}
+
+MakeInvincible: {
+	Label: "[i:29] Make Invincible"
+	Tooltip: Town NPCs cannot take damage.
+}
+
+ExcludedNPCs: {
+	Label: "[i:267] Excluded Town NPCs"
+	Tooltip: These town NPCs will never be frozen.
+}
+
+ExcludeTravelingMerchant: {
+	Label: "[i:2275] Exclude Traveling Merchant"
+	Tooltip: Traveling Merchant will not be frozen, allowing him to despawn naturally.
+}
+
+WrathOfTheGodsCompatibility: {
+	Label: "[i:4009] Calamity: Wrath of the Gods"
+	Tooltip: Solyn will not be frozen to prevent bugs.
+}
+
+CalamityCompatibility: {
+	Label: "[i:1185] Calamity Mod"
+	Tooltip: Shady Salesman will not be frozen, allowing him to despawn naturally.
+}
+
+GhostInterval: {
+	Label: "[i:707] Freeze Update Interval"
+	Tooltip: How often (ticks) the mod checks town NPCs for freezing.
+}
+
+TeleportInterval: {
+	Label: "[i:707] Teleport Update Interval"
+	Tooltip: How often (ticks) frozen NPCs check for teleporting home.
+}
+
+SyncInterval: {
+	Label: "[i:707] Sync Update Interval"
+	Tooltip: How often (ticks) frozen NPCs sync their home data in multiplayer.
+}
+
+InvincibleInterval: {
+	Label: "[i:707] Invincible Update Interval"
+	Tooltip: How often (ticks) the invincibility status is reapplied to town NPCs.
+}
+
+LogToChat: {
+	Label: "[i:1344] Log to Chat"
+	Tooltip: Output debug information to chat. In multiplayer, only the host will see the messages.
+}

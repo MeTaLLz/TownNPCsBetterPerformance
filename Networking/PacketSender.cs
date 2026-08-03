@@ -4,14 +4,14 @@ using Terraria.ModLoader;
 
 namespace TownNPCsFreeze
 {
-    public static class PacketHelper
+    public static class PacketSender
     {
         public static void SendLocalAISync(NPC npc)
         {
             if (Main.netMode != NetmodeID.Server)
                 return;
             
-            ModPacket packet = ModInstanceManager.Mod.GetPacket();
+            ModPacket packet = ModInstance.Mod.GetPacket();
             packet.Write((byte)1);
             packet.Write(npc.whoAmI);
             packet.Write((int)npc.localAI[0]);
@@ -26,7 +26,7 @@ namespace TownNPCsFreeze
             if (Main.netMode != NetmodeID.Server)
                 return;
             
-            ModPacket packet = ModInstanceManager.Mod.GetPacket();
+            ModPacket packet = ModInstance.Mod.GetPacket();
             packet.Write((byte)2);
             packet.Write(npc.whoAmI);
             packet.Write(npc.hide);

@@ -1,0 +1,24 @@
+This mod disables most systems of town NPCs (AI, physics, collision, etc.), so they consume far fewer resources. It can help, for example, during very demanding fights when you have too many town NPCs in your world.
+
+Some gameplay-essential systems remain active — arriving, housing, map head icons, and others — while the resource-heavy ones are disabled. Town NPCs do not disappear from the world, so these systems must work correctly.
+
+[h1]Configurable Features:[/h1]
+[list]
+[*] [b]Distance-based freeze for all town NPCs[/b]
+[*] [b]Separate horizontal and vertical distance sliders in tiles (X: 90, Y: 65 by default)[/b]
+[*] [b]Boss-based freeze for all town NPCs[/b]
+[*] [b]Invincibility for all town NPCs (doesn't improve performance, just like an additional setting)[/b]
+[*] [b]Custom exclusion list (NPCs that will never be frozen)[/b]
+[*] [b]Calamity Mod compatibility (some NPCs are excluded from freezing)[/b]
+[*] [b]Wrath of the Gods compatibility (some NPCs are excluded from freezing)[/b]
+[*] [b]Adjustable update intervals[/b]
+[*] [b]Output debug information to chat. In multiplayer, only the host sees the messages[/b]
+[/list]
+
+[h1]Incompatibilities:[/h1]
+[list]
+[*] [b]Terraria Ambience: idk why, but it just glitches the mod's work in multiplayer.[/b]
+[/list]
+
+[i](Note: mod's effectiveness may vary depending on your mod setup, hardware, and in-game situations — though that's obvious.)
+[/i]

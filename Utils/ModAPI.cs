@@ -15,21 +15,34 @@ namespace TownNPCsFreeze
         }
 
         /// <summary>
-        /// Completely enables or disables all mod functionality. (Just in case)
+        /// Completely enables or disables all mod functionality.
         /// </summary>
         public static void SetEnabled(bool enabled)
         {
             if (_enabled == enabled) return;
-            
+
             _enabled = enabled;
-            
+
             if (!_enabled)
             {
-                GhostManager.RestoreAllGhost();
+                GhostCore.ThawAllNPCs();
+                return;
+            }
+
+            BossGhostManager.SyncState();
+            BossGhostManager.SetPrevBossGhost(ConfigCache.BossGhost);
+
+            if (ConfigCache.BossGhost && BossGhostManager.IsBossFightActive())
+            {
+                BossGhostManager.ForceFreeze();
+            }
+            else if (ConfigCache.DistantGhost)
+            {
+                DistantGhostManager.ProcessDistantGhost();
             }
             else
             {
-                GhostManager.ProcessDistantGhost();
+                GhostCore.ThawAllNPCs();
             }
         }
 
@@ -44,7 +57,7 @@ namespace TownNPCsFreeze
         public static void RegisterExcludedNPC(int npcType)
         {
             if (!_initialized) Initialize();
-            GhostManager.RegisterExcludedNPC(npcType);
+            ExclusionManager.RegisterCompatibilityExclusion(npcType);
         }
 
         /// <summary>
@@ -53,7 +66,7 @@ namespace TownNPCsFreeze
         public static void UnregisterExcludedNPC(int npcType)
         {
             if (!_initialized) Initialize();
-            GhostManager.UnregisterExcludedNPC(npcType);
+            ExclusionManager.UnregisterCompatibilityExclusion(npcType);
         }
     }
 }

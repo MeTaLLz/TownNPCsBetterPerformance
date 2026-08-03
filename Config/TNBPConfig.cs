@@ -8,7 +8,7 @@ namespace TownNPCsFreeze
 {
     [BackgroundColor(78, 60, 64, 216)]
     [SliderColor(121, 85, 71, 255)]
-    public class TNPSConfig : ModConfig
+    public class TNBPConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
@@ -29,6 +29,10 @@ namespace TownNPCsFreeze
         [Slider]
         public int LoadDistanceY = 65;
 
+        [DefaultValue(false)]
+        [BackgroundColor(100, 75, 60, 255)]
+        public bool BossGhost = false;
+
         [Header("Invincible")]
         [DefaultValue(false)]
         [BackgroundColor(100, 75, 60, 255)]
@@ -36,7 +40,11 @@ namespace TownNPCsFreeze
 
         [Header("Exclusions")]
         [BackgroundColor(100, 75, 60, 255)]
-        public List<NPCDefinition> ExcludedNPCs = new();
+        public List<NPCDefinition> ExcludedNPCs = [];
+
+        [DefaultValue(true)]
+        [BackgroundColor(100, 75, 60, 255)]
+        public bool ExcludeTravelingMerchant = true;
 
         [Header("Compatibility")]
         [DefaultValue(true)]
@@ -44,51 +52,55 @@ namespace TownNPCsFreeze
         [ReloadRequired]
         public bool WrathOfTheGodsCompatibility = true;
 
+        [DefaultValue(true)]
+        [BackgroundColor(100, 75, 60, 255)]
+        [ReloadRequired]
+        public bool CalamityCompatibility = true;
+
+        [Header("Intervals")]
+        [DefaultValue(12)]
+        [Range(1, 120)]
+        [BackgroundColor(100, 75, 60, 255)]
+        [Slider]
+        public int GhostInterval = 12;
+
+        [DefaultValue(12)]
+        [Range(1, 120)]
+        [BackgroundColor(100, 75, 60, 255)]
+        [Slider]
+        public int TeleportInterval = 12;
+
+        [DefaultValue(12)]
+        [Range(1, 120)]
+        [BackgroundColor(100, 75, 60, 255)]
+        [Slider]
+        public int SyncInterval = 12;
+
+        [DefaultValue(60)]
+        [Range(1, 120)]
+        [BackgroundColor(100, 75, 60, 255)]
+        [Slider]
+        public int InvincibleInterval = 60;
+
         [Header("Debug")]
         [DefaultValue(false)]
         [BackgroundColor(100, 75, 60, 255)]
         public bool LogToChat = false;
-
-        [Header("Other")]
-        [DefaultValue(10)]
-        [Range(1, 60)]
-        [BackgroundColor(100, 75, 60, 255)]
-        [Slider]
-        public int UpdateInterval = 10;
-
-        [DefaultValue(15)]
-        [Range(1, 60)]
-        [BackgroundColor(100, 75, 60, 255)]
-        [Slider]
-        public int ConfigRefreshInterval = 15;
-
-        private bool _prevDistantGhost;
-        private int _prevLoadDistanceX;
-        private int _prevLoadDistanceY;
 
         public override void OnChanged()
         {
             if (Main.netMode == NetmodeID.MultiplayerClient)
                 return;
 
-            bool distantChanged = DistantGhost != _prevDistantGhost;
-            bool distanceXChanged = LoadDistanceX != _prevLoadDistanceX;
-            bool distanceYChanged = LoadDistanceY != _prevLoadDistanceY;
+            ConfigCache.Update(this);
+            
+            InvincibleManager.UpdateConfig();
+            InvincibleManager.OnConfigChanged();
+            
+            GhostCore.UnfreezeExcluded();
 
-            GhostManager.RefreshConfigCache();
-            GhostManager.UnfreezeExcluded();
-
-            if (distantChanged || distanceXChanged || distanceYChanged)
-            {
-                if (!DistantGhost)
-                    GhostManager.RestoreAllGhost();
-                else
-                    GhostManager.ProcessDistantGhost();
-            }
-
-            _prevDistantGhost = DistantGhost;
-            _prevLoadDistanceX = LoadDistanceX;
-            _prevLoadDistanceY = LoadDistanceY;
+            DistantGhostManager.OnConfigChanged();
+            BossGhostManager.OnConfigChanged();
         }
     }
 }

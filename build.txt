@@ -1,5 +1,5 @@
-displayName = Town NPCs Performance Saver
+displayName = Town NPCs Better Performance
 author = IvanVSolo2004
-version = 0.2.2
-buildIgnore = *.sln, *.csproj, *.user, obj/*, bin/*, *.TNPSConfig, .git/*, .github/*, LICENSE, README.md, .gitignore, .gitattributes
+version = 0.2.3
+buildIgnore = *.sln, *.csproj, *.user, obj/*, bin/*, *.TNBPConfig, .git/*, .github/*, LICENSE, README.md, .gitignore, .gitattributes
 includeSource = true

@@ -3,5 +3,6 @@ Thawed: "{0} ({1}) thawed"
 ExcludedAdded: "{0} ({1}) excluded from freeze"
 ExcludedRemoved: "{0} ({1}) no longer excluded from freeze"
 TeleportedHome: "{0} ({1}) teleported home"
-SyncHome: Sync home for {0} ({1}): ({2},{3}). Homeless={4}
-RestoreAll: "{0} NPCs thawed"
+SyncHome: "{0} ({1}): home synchronized in coordinates ({2},{3})"
+BossFreezeStarted: Boss fight freeze started
+BossFreezeEnded: Boss fight freeze ended

@@ -1,5 +1,4 @@
 using Terraria.ModLoader;
-using static TownNPCsFreeze.ModInstanceManager;
 
 namespace TownNPCsFreeze.CrossCompatibility
 {
@@ -12,7 +11,7 @@ namespace TownNPCsFreeze.CrossCompatibility
 
         public static void UpdateExclusions()
         {
-            if (Config == null) return;
+            if (!ConfigCache.IsValid) return;
             
             if (ModLoader.TryGetMod("NoxusBoss", out Mod noxusBoss))
             {
@@ -23,7 +22,7 @@ namespace TownNPCsFreeze.CrossCompatibility
                     ModAPI.UnregisterExcludedNPC(battleSolyn.Type);
             }
             
-            if (Config.WrathOfTheGodsCompatibility)
+            if (ConfigCache.WrathOfTheGodsCompatibility)
             {
                 if (ModLoader.TryGetMod("NoxusBoss", out Mod noxusBoss2))
                 {
