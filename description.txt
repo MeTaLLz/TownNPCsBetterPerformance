@@ -19,6 +19,6 @@ Compatibilities:
   - Terraria Ambience: Fixes an error on dedicated servers where the mod tries to access audio systems that don't exist, which previously caused TNBP to break in multiplayer.
 
 Incompatibilities:
-  - Overperformance: If you are using this mod, do not enable mine to avoid conflicts — all features are already built in.
-
+  - Overperformance: If you are using this mod, don't enable mine — or if you prefer to keep it, disable all functionality in the config to avoid conflicts. All important features are already built into Overperformance.
+  
 (Mod effectiveness may vary depending on your hardware, mod setup, and in-game situations)
