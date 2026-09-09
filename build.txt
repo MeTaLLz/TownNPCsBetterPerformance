@@ -1,5 +1,5 @@
 displayName = Town NPCs Better Performance
-author = IvanVSolo2004
-version = 0.2.3
-buildIgnore = *.sln, *.csproj, *.user, obj/*, bin/*, *.TNBPConfig, .git/*, .github/*, LICENSE, README.md, .gitignore, .gitattributes
+author = Gamos
+version = 0.3.1
+buildIgnore = *.sln, *.csproj, *.user, obj/*, bin/*, .git/*, .github/*, LICENSE, README.md, .gitignore, .gitattributes
 includeSource = true

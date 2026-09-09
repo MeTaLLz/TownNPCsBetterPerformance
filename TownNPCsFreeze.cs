@@ -7,7 +7,7 @@ namespace TownNPCsFreeze
     {
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
-            PacketHandler.HandlePacket(reader, whoAmI);
+            PacketHandler.HandlePacket(reader);
         }
     }
 }

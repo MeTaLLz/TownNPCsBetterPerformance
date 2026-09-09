@@ -1,24 +1,30 @@
-This mod disables most systems of town NPCs (AI, physics, collision, etc.), so they consume far fewer resources. It can help, for example, during very demanding fights when you have too many town NPCs in your world.
+This mod completely bypasses the update loop for town NPCs, preventing their AI from running entirely. Movement, pathfinding, attacking, door interaction, falling, and other expensive operations are just not processed.
 
-Some gameplay-essential systems remain active — arriving, housing, map head icons, and others — while the resource-heavy ones are disabled. Town NPCs do not disappear from the world, so these systems must work correctly.
+This can be helpful during very demanding boss fights with a large number of town NPCs, where every active NPC would otherwise be forced to update alongside the boss and its projectiles, adding insane overhead.
 
-[h1]Configurable Features:[/h1]
+[h1]Configurable features:[/h1]
 [list]
-[*] [b]Distance-based freeze for all town NPCs[/b]
-[*] [b]Separate horizontal and vertical distance sliders in tiles (X: 90, Y: 65 by default)[/b]
-[*] [b]Boss-based freeze for all town NPCs[/b]
-[*] [b]Invincibility for all town NPCs (doesn't improve performance, just like an additional setting)[/b]
-[*] [b]Custom exclusion list (NPCs that will never be frozen)[/b]
-[*] [b]Calamity Mod compatibility (some NPCs are excluded from freezing)[/b]
-[*] [b]Wrath of the Gods compatibility (some NPCs are excluded from freezing)[/b]
-[*] [b]Adjustable update intervals[/b]
-[*] [b]Output debug information to chat. In multiplayer, only the host sees the messages[/b]
+[*][b]Distance-based freeze:[/b] Freeze based on a configurable distance from players.
+[*][b]Separate sliders:[/b] Horizontal (90) and vertical (65) freeze distance in tiles.
+[*][b]Boss-based freeze:[/b] Freeze during boss fights.
+[*][b]Invincibility:[/b] Town NPCs cannot take damage (doesn't improve performance).
+[*][b]Custom exclusions:[/b] NPCs that will never be frozen.
+[*][b]Traveling Merchant:[/b] Is excluded from freeze by default, allowing him to despawn naturally.
+[*][b]Adjustable intervals:[/b] Configure update frequency for each system.
+[*][b]Debug logging:[/b] Outputs info to chat (only host sees messages in multiplayer).
+[*][b]Mod state:[/b] Completely enables or disables all mod functionality.
+[/list]
+
+[h1]Compatibilities:[/h1]
+[list]
+[*][b]Calamity Mod:[/b] Shady Salesman is excluded from freezing, allowing him to despawn naturally.
+[*][b]Wrath of the Gods:[/b] Solyn is excluded from freezing to prevent her from being frozen during mod boss fights.
+[*][b]Terraria Ambience:[/b] Fixes an error on dedicated servers where the mod tries to access audio systems that don't exist, which previously caused TNBP to break in multiplayer.
 [/list]
 
 [h1]Incompatibilities:[/h1]
 [list]
-[*] [b]Terraria Ambience: idk why, but it just glitches the mod's work in multiplayer.[/b]
+[*][b]Overperformance:[/b] If you are using this mod, don't enable mine — or if you prefer to keep it, disable all functionality in the config to avoid conflicts. All important features are already built into Overperformance.
 [/list]
 
-[i](Note: mod's effectiveness may vary depending on your mod setup, hardware, and in-game situations — though that's obvious.)
-[/i]
+[i](Mod effectiveness may vary depending on your hardware, mod setup, and in-game situations)[/i]

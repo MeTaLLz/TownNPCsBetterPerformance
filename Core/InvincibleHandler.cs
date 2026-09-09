@@ -3,19 +3,23 @@ using Terraria.ModLoader;
 
 namespace TownNPCsFreeze
 {
-    public class InvincibleManager : GlobalNPC
+    public class InvincibleHandler : GlobalNPC
     {
         private static bool _invincibleEnabled = false;
-        private static bool _prevInvincibleEnabled = false;
 
-        public static void UpdateConfig()
+        public static void SyncWithConfig()
         {
-            _prevInvincibleEnabled = _invincibleEnabled;
+            bool wasEnabled = _invincibleEnabled;
             _invincibleEnabled = ConfigCache.MakeInvincible;
+            
+            if (wasEnabled && !_invincibleEnabled)
+                RemoveAll();
         }
 
         public static void ApplyToAll()
         {
+            if (NetmodeHelper.IsMultiplayerClient) return;
+            
             if (!_invincibleEnabled) return;
 
             for (int i = 0; i < Main.maxNPCs; i++)
@@ -28,18 +32,14 @@ namespace TownNPCsFreeze
 
         public static void RemoveAll()
         {
+            if (NetmodeHelper.IsMultiplayerClient) return;
+            
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC npc = Main.npc[i];
                 if (npc.active && npc.townNPC && !npc.boss)
                     npc.immortal = false;
             }
-        }
-
-        public static void OnConfigChanged()
-        {
-            if (_prevInvincibleEnabled && !_invincibleEnabled)
-                RemoveAll();
         }
     }
 }

@@ -6,29 +6,26 @@ using Terraria.ID;
 
 namespace TownNPCsFreeze
 {
-    public static class HomeTeleportManager
+    public static class HomeTeleportHandler
     {
         private const float Inv16 = 1f / 16f;
         private static Action<NPC, int, int> _teleportHomeDelegate;
         private static Func<NPC, int, int, int, int, bool> _isInGoodRestingSpotDelegate;
         private static MethodInfo _findGoodRestingSpotMethod;
 
-        public static void InitDelegates()
+        public static void SetDelegates(
+            Action<NPC, int, int> teleportHome,
+            Func<NPC, int, int, int, int, bool> isInGoodRestingSpot,
+            MethodInfo findGoodRestingSpot)
         {
-            _teleportHomeDelegate = CreateDelegate<Action<NPC, int, int>>(
-                "AI_007_TownEntities_TeleportToHome", [typeof(int), typeof(int)]);
-
-            _isInGoodRestingSpotDelegate = CreateDelegate<Func<NPC, int, int, int, int, bool>>(
-                "AI_007_TownEntities_IsInAGoodRestingSpot", [typeof(int), typeof(int), typeof(int), typeof(int)]);
-
-            _findGoodRestingSpotMethod = typeof(NPC).GetMethod("AI_007_FindGoodRestingSpot",
-                BindingFlags.NonPublic | BindingFlags.Instance, null,
-                [typeof(int), typeof(int), typeof(int).MakeByRefType(), typeof(int).MakeByRefType()], null);
+            _teleportHomeDelegate = teleportHome;
+            _isInGoodRestingSpotDelegate = isInGoodRestingSpot;
+            _findGoodRestingSpotMethod = findGoodRestingSpot;
         }
 
-        public static void ProcessGhostTeleport()
+        public static void ProcessTeleportFrozen()
         {
-            if (Main.netMode == NetmodeID.MultiplayerClient) return;
+            if (NetmodeHelper.IsMultiplayerClient) return;
 
             bool isNightOrRain = !Main.dayTime || Main.raining || Main.eclipse || Main.slimeRain;
             if (!isNightOrRain) return;
@@ -36,7 +33,7 @@ namespace TownNPCsFreeze
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC npc = Main.npc[i];
-                if (npc.active && npc.townNPC && npc.ai[3] == ModConstants.GhostFlag)
+                if (npc.active && npc.townNPC && npc.ai[3] == ModConstants.FreezeFlag)
                     TryTeleportHome(npc);
             }
         }
@@ -52,15 +49,19 @@ namespace TownNPCsFreeze
             if (homeChanged || positionChanged)
                 npc.localAI[0] = 0f;
 
+            // Was teleported
             if (npc.localAI[0] == 1f)
                 return;
 
+            // Find good spot
             if (!FindIdealRestingSpot(npc, out int idealRestX, out int idealRestY))
                 return;
 
+            // Is in good spot
             if (_isInGoodRestingSpotDelegate(npc, (int)(npc.Center.X * Inv16), (int)(npc.Center.Y * Inv16), idealRestX, idealRestY))
                 return;
 
+            // Any player near
             if (IsPlayerNear(npc, idealRestX, idealRestY))
                 return;
 
@@ -69,37 +70,31 @@ namespace TownNPCsFreeze
 
             if (oldPos != npc.position)
             {
+                // Teleport home
                 npc.localAI[0] = 1f;
                 npc.localAI[1] = npc.homeTileX;
                 npc.localAI[2] = npc.homeTileY;
                 npc.localAI[3] = (int)(npc.position.X * Inv16);
 
-                if (Main.netMode == NetmodeID.Server)
+                if (NetmodeHelper.IsServer)
                 {
                     PacketSender.SendLocalAISync(npc);
-                    PacketSender.SendVisualSync(npc);
+                    // PacketSender.SendVisualSync(npc);
                 }
 
-                if (ConfigCache.LogToChat)
-                    ModLogger.Log("TeleportedHome", npc.GivenName, Lang.GetNPCNameValue(npc.type));
+                ChatLogger.Log(ColorHelper.LightBrown, "{0} ({1}) teleported home", npc.GivenName, Lang.GetNPCNameValue(npc.type));
             }
             else
             {
+                // Was teleported
                 npc.localAI[0] = 1f;
-                if (Main.netMode == NetmodeID.Server)
+                if (NetmodeHelper.IsServer)
                     PacketSender.SendLocalAISync(npc);
             }
 
             npc.netUpdate = true;
-            if (Main.netMode == NetmodeID.Server)
+            if (NetmodeHelper.IsServer)
                 NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
-        }
-
-        private static T CreateDelegate<T>(string methodName, Type[] paramTypes) where T : Delegate
-        {
-            var method = typeof(NPC).GetMethod(methodName,
-                BindingFlags.NonPublic | BindingFlags.Instance, null, paramTypes, null);
-            return (T)Delegate.CreateDelegate(typeof(T), method);
         }
 
         private static bool FindIdealRestingSpot(NPC npc, out int restX, out int restY)

@@ -1,15 +1,14 @@
-DisplayName: Конфигурация городских НИПов
+DisplayName: Конфигурация TNBP
 
 Headers: {
-	GhostMode: Заморозка
+	FreezeMode: Заморозка
 	Invincible: Неуязвимость
 	Exclusions: Исключения
 	Compatibility: Совместимость с модами
-	Intervals: Интервалы обновления
-	Debug: Отладка
+	Advanced: Дополнительно
 }
 
-DistantGhost: {
+DistantFreeze: {
 	Label: "[i:3625] Дистанционная заморозка"
 	Tooltip: Городские НИПы замораживаются по дистанции.
 }
@@ -24,7 +23,7 @@ LoadDistanceY: {
 	Tooltip: Расстояние в тайлах (по вертикали), на котором городские НИПы замораживаются и размораживаются.
 }
 
-BossGhost: {
+BossFreeze: {
 	Label: "[i:43] Заморозка во время битвы с боссом"
 	Tooltip: Все городские НИПы будут заморожены во время битв с боссами.
 }
@@ -46,15 +45,20 @@ ExcludeTravelingMerchant: {
 
 WrathOfTheGodsCompatibility: {
 	Label: "[i:4009] Calamity: Wrath of the Gods"
-	Tooltip: Солин не будет заморожена для предотвращения ошибок.
+	Tooltip: Солин не будет заморожена для предотвращения ее заморозки во время битв мода.
 }
 
 CalamityCompatibility: {
-	Label: "[i:1185] Calamity Mod"
+	Label: "[i:274] Calamity Mod"
 	Tooltip: Подозрительный торговец не будет заморожен, что позволит ему естественно деспавниться.
 }
 
-GhostInterval: {
+TerrariaAmbienceFix: {
+	Label: "[i:966] Terraria Ambience"
+	Tooltip: Исправляет ошибку на выделенных серверах, где мод пытается обратиться к аудиосистемам, которых не существует.
+}
+
+FreezeInterval: {
 	Label: "[i:707] Интервал обновления заморозки"
 	Tooltip: Как часто (тики) мод проверяет городских НИПов на заморозку.
 }
@@ -77,4 +81,9 @@ InvincibleInterval: {
 LogToChat: {
 	Label: "[i:1344] Логирование в чат"
 	Tooltip: Вывод отладочной информации в чат. В мультиплеере сообщения видит только хост.
+}
+
+ModState: {
+	Label: "[i:193] Состояние мода"
+	Tooltip: Активирует или деактивирует всю функциональность мода.
 }

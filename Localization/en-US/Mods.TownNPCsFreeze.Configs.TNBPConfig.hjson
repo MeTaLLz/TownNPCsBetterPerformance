@@ -1,30 +1,29 @@
-DisplayName: Town NPCs Configuration
+DisplayName: TNBP Configuration
 
 Headers: {
-	GhostMode: Freeze
+	FreezeMode: Freeze
 	Invincible: Invincibility
 	Exclusions: Exclusions
 	Compatibility: Mod Compatibility
-	Intervals: Update Intervals
-	Debug: Debug
+	Advanced: Advanced
 }
 
-DistantGhost: {
+DistantFreeze: {
 	Label: "[i:3625] Distance Freeze"
 	Tooltip: Town NPCs are frozen based on distance.
 }
 
 LoadDistanceX: {
 	Label: "[i:486] Freeze Distance (Horizontal)"
-	Tooltip: Distance in tiles (horizontal) at which town NPCs freeze and unfreeze.
+	Tooltip: Distance in tiles (horizontal) at which town NPCs freeze and Thaw.
 }
 
 LoadDistanceY: {
 	Label: "[i:486] Freeze Distance (Vertical)"
-	Tooltip: Distance in tiles (vertical) at which town NPCs freeze and unfreeze.
+	Tooltip: Distance in tiles (vertical) at which town NPCs freeze and Thaw.
 }
 
-BossGhost: {
+BossFreeze: {
 	Label: "[i:43] Freeze During Boss Fight"
 	Tooltip: All town NPCs will be frozen during boss fights.
 }
@@ -46,15 +45,20 @@ ExcludeTravelingMerchant: {
 
 WrathOfTheGodsCompatibility: {
 	Label: "[i:4009] Calamity: Wrath of the Gods"
-	Tooltip: Solyn will not be frozen to prevent bugs.
+	Tooltip: Solyn will not be frozen to prevent her from being frozen during mod boss fights.
 }
 
 CalamityCompatibility: {
-	Label: "[i:1185] Calamity Mod"
+	Label: "[i:274] Calamity Mod"
 	Tooltip: Shady Salesman will not be frozen, allowing him to despawn naturally.
 }
 
-GhostInterval: {
+TerrariaAmbienceFix: {
+	Label: "[i:966] Terraria Ambience"
+	Tooltip: Fixes an error on dedicated servers where the mod tries to access audio systems that don't exist.
+}
+
+FreezeInterval: {
 	Label: "[i:707] Freeze Update Interval"
 	Tooltip: How often (ticks) the mod checks town NPCs for freezing.
 }
@@ -77,4 +81,9 @@ InvincibleInterval: {
 LogToChat: {
 	Label: "[i:1344] Log to Chat"
 	Tooltip: Output debug information to chat. In multiplayer, only the host will see the messages.
+}
+
+ModState: {
+	Label: "[i:193] Mod State"
+	Tooltip: Activates or deactivates all mod functionality.
 }

@@ -25,24 +25,28 @@ namespace TownNPCsFreeze
 
             if (!_enabled)
             {
-                GhostCore.ThawAllNPCs();
+                ChatLogger.Log(ColorHelper.DarkRed, "Mod functionality disabled");
+                FreezeCore.ThawAll();
+                FreezeCore.ThawExcluded();
+                InvincibleHandler.RemoveAll();
                 return;
             }
 
-            BossGhostManager.SyncState();
-            BossGhostManager.SetPrevBossGhost(ConfigCache.BossGhost);
+            ChatLogger.Log(ColorHelper.DarkGreen, "Mod functionality enabled");
 
-            if (ConfigCache.BossGhost && BossGhostManager.IsBossFightActive())
+            BossFreezeHandler.SyncState();
+
+            if (ConfigCache.BossFreeze && BossFreezeHandler.IsBossFightActive())
             {
-                BossGhostManager.ForceFreeze();
+                BossFreezeHandler.ForceFreeze();
             }
-            else if (ConfigCache.DistantGhost)
+            else if (ConfigCache.DistantFreeze)
             {
-                DistantGhostManager.ProcessDistantGhost();
+                DistantFreezeHandler.ProcessDistantFreeze();
             }
             else
             {
-                GhostCore.ThawAllNPCs();
+                FreezeCore.ThawAll();
             }
         }
 
@@ -57,7 +61,7 @@ namespace TownNPCsFreeze
         public static void RegisterExcludedNPC(int npcType)
         {
             if (!_initialized) Initialize();
-            ExclusionManager.RegisterCompatibilityExclusion(npcType);
+            ExclusionHandler.RegisterCompatibilityExclusion(npcType);
         }
 
         /// <summary>
@@ -66,7 +70,7 @@ namespace TownNPCsFreeze
         public static void UnregisterExcludedNPC(int npcType)
         {
             if (!_initialized) Initialize();
-            ExclusionManager.UnregisterCompatibilityExclusion(npcType);
+            ExclusionHandler.UnregisterCompatibilityExclusion(npcType);
         }
     }
 }

@@ -308,8 +308,8 @@ ServiceFabricBackup/
 # Microsoft Fakes
 FakesAssemblies/
 
-# GhostDoc plugin setting file
-*.GhostDoc.xml
+# FreezeDoc plugin setting file
+*.FreezeDoc.xml
 
 # Node.js Tools for Visual Studio
 .ntvs_analysis.dat

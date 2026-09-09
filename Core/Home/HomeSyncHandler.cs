@@ -2,30 +2,29 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 
 namespace TownNPCsFreeze
 {
-    public static class HomeSyncManager
+    public static class HomeSyncHandler
     {
         private static readonly Dictionary<int, Point> _lastHome = [];
         private static readonly Dictionary<int, bool> _lastHomeless = [];
         private static Action<NPC, int> _updateNetworkCodeDelegate;
 
-        public static void Init(Action<NPC, int> delegateMethod)
+        public static void SetDelegates(Action<NPC, int> updateNetworkCode)
         {
-            _updateNetworkCodeDelegate = delegateMethod;
+            _updateNetworkCodeDelegate = updateNetworkCode;
         }
 
         public static void SyncHomes()
         {
-            if (Main.netMode != NetmodeID.Server || _updateNetworkCodeDelegate == null)
+            if (!NetmodeHelper.IsServer || _updateNetworkCodeDelegate == null)
                 return;
 
             for (int i = 0; i < Main.maxNPCs; i++)
             {
                 NPC npc = Main.npc[i];
-                if (!npc.active || !npc.townNPC || npc.ai[3] != ModConstants.GhostFlag)
+                if (!npc.active || !npc.townNPC || npc.ai[3] != ModConstants.FreezeFlag)
                     continue;
 
                 if (!_lastHome.TryGetValue(i, out Point lastHome))
@@ -40,9 +39,8 @@ namespace TownNPCsFreeze
                 UpdateHomeCache(i, npc);
                 _updateNetworkCodeDelegate(npc, i);
 
-                if (ConfigCache.LogToChat)
-                    ModLogger.Log("SyncHome", npc.GivenName, Lang.GetNPCNameValue(npc.type),
-                        npc.homeTileX, npc.homeTileY);
+                ChatLogger.Log(ColorHelper.LightBrown, "{0} ({1}) home sync {2},{3}", 
+                    npc.GivenName, Lang.GetNPCNameValue(npc.type), npc.homeTileX, npc.homeTileY);
             }
         }
 

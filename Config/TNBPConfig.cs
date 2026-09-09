@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.ComponentModel;
-using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader.Config;
 
 namespace TownNPCsFreeze
@@ -12,26 +10,26 @@ namespace TownNPCsFreeze
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        [Header("GhostMode")]
+        [Header("FreezeMode")]
         [DefaultValue(true)]
         [BackgroundColor(100, 75, 60, 255)]
-        public bool DistantGhost = true;
+        public bool DistantFreeze = true;
 
-        [DefaultValue(90)]
+        [DefaultValue(ModConstants.DefaultLoadDistanceX)]
         [Range(0, 200)]
         [BackgroundColor(100, 75, 60, 255)]
         [Slider]
-        public int LoadDistanceX = 90;
+        public int LoadDistanceX = ModConstants.DefaultLoadDistanceX;
 
-        [DefaultValue(65)]
+        [DefaultValue(ModConstants.DefaultLoadDistanceY)]
         [Range(0, 200)]
         [BackgroundColor(100, 75, 60, 255)]
         [Slider]
-        public int LoadDistanceY = 65;
+        public int LoadDistanceY = ModConstants.DefaultLoadDistanceY;
 
         [DefaultValue(false)]
         [BackgroundColor(100, 75, 60, 255)]
-        public bool BossGhost = false;
+        public bool BossFreeze = false;
 
         [Header("Invincible")]
         [DefaultValue(false)]
@@ -57,50 +55,62 @@ namespace TownNPCsFreeze
         [ReloadRequired]
         public bool CalamityCompatibility = true;
 
-        [Header("Intervals")]
-        [DefaultValue(12)]
+        [DefaultValue(true)]
+        [BackgroundColor(100, 75, 60, 255)]
+        [ReloadRequired]
+        public bool TerrariaAmbienceFix = true;
+
+        [Header("Advanced")]
+        [DefaultValue(ModConstants.DefaultFreezeInterval)]
         [Range(1, 120)]
         [BackgroundColor(100, 75, 60, 255)]
         [Slider]
-        public int GhostInterval = 12;
+        public int FreezeInterval = ModConstants.DefaultFreezeInterval;
 
-        [DefaultValue(12)]
+        [DefaultValue(ModConstants.DefaultTeleportInterval)]
         [Range(1, 120)]
         [BackgroundColor(100, 75, 60, 255)]
         [Slider]
-        public int TeleportInterval = 12;
+        public int TeleportInterval = ModConstants.DefaultTeleportInterval;
 
-        [DefaultValue(12)]
+        [DefaultValue(ModConstants.DefaultSyncInterval)]
         [Range(1, 120)]
         [BackgroundColor(100, 75, 60, 255)]
         [Slider]
-        public int SyncInterval = 12;
+        public int SyncInterval = ModConstants.DefaultSyncInterval;
 
-        [DefaultValue(60)]
+        [DefaultValue(ModConstants.DefaultInvincibleInterval)]
         [Range(1, 120)]
         [BackgroundColor(100, 75, 60, 255)]
         [Slider]
-        public int InvincibleInterval = 60;
+        public int InvincibleInterval = ModConstants.DefaultInvincibleInterval;
 
-        [Header("Debug")]
         [DefaultValue(false)]
         [BackgroundColor(100, 75, 60, 255)]
         public bool LogToChat = false;
 
+        [DefaultValue(true)]
+        [BackgroundColor(100, 75, 60, 255)]
+        public bool ModState = true;
+
         public override void OnChanged()
         {
-            if (Main.netMode == NetmodeID.MultiplayerClient)
-                return;
+            if (NetmodeHelper.IsMultiplayerClient) return;
 
             ConfigCache.Update(this);
-            
-            InvincibleManager.UpdateConfig();
-            InvincibleManager.OnConfigChanged();
-            
-            GhostCore.UnfreezeExcluded();
 
-            DistantGhostManager.OnConfigChanged();
-            BossGhostManager.OnConfigChanged();
+            if (!ConfigCache.ModState)
+            {
+                ModAPI.SetEnabled(false);
+                return;
+            }
+
+            InvincibleHandler.SyncWithConfig();
+            DistantFreezeHandler.SyncWithConfig();
+            BossFreezeHandler.SyncWithConfig();
+
+            ModAPI.SetEnabled(true);
+            FreezeCore.ThawExcluded();
         }
     }
 }
