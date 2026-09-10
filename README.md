@@ -4,23 +4,4 @@ This mod completely bypasses the update loop for town NPCs, preventing their AI 
 
 This can be helpful during very demanding boss fights with a large number of town NPCs, where every active NPC would otherwise be forced to update alongside the boss and its projectiles, adding insane overhead.
 
-Configurable features:
-  - Distance-based freeze: Freeze based on a configurable distance from players.
-  - Separate sliders: Horizontal (90) and vertical (65) freeze distance in tiles.
-  - Boss-based freeze: Freeze during boss fights.
-  - Invincibility: Town NPCs cannot take damage (doesn't improve performance).
-  - Custom exclusions: NPCs that will never be frozen.
-  - Traveling Merchant: Is excluded from freeze by default, allowing him to despawn naturally.
-  - Adjustable intervals: Configure update frequency for each system.
-  - Debug logging: Outputs info to chat (only host sees messages in multiplayer).
-  - Mod state: Completely enables or disables all mod functionality.
-
-Compatibilities:
-  - Calamity Mod: Shady Salesman is excluded from freezing, allowing him to despawn naturally.
-  - Wrath of the Gods: Solyn is excluded from freezing to prevent her from being frozen during mod boss fights.
-  - Terraria Ambience: Fixes an error on dedicated servers where the mod tries to access audio systems that don't exist, which previously caused TNBP to break in multiplayer.
-
-Incompatibilities:
-  - Overperformance: If you are using this mod, don't enable mine — or if you prefer to keep it, disable all functionality in the config to avoid conflicts. All important features are already built into Overperformance.
-  
 (Mod effectiveness may vary depending on your hardware, mod setup, and in-game situations)
